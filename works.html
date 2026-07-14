@@ -931,11 +931,172 @@ text-allignment: center;
   }
 }
 
+.design-drive-container{
+    display:flex;
+    gap:20px;              /* Space between banners */
+    flex-wrap:nowrap;        /* Optional: wrap on small screens */
+    align-items:flex-start;
+}
+.design-drive-banner{
+    display:block;
+    width:356px;
+    height:200px;
+    margin:5px 0 75px 0px;
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.design-drive-banner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:.3s;
+}
+
+.design-drive-banner:hover img{
+    transform:scale(1.03);
+}
+
+/* =========================
+   Mobile (up to 768px)
+========================= */
+@media (max-width: 768px) {
+
+    .design-drive-banner{
+        width:160px;
+        height:90px;
+        margin:10px 0 40px;
+        border-radius:8px;
+    }
+
+
+}
+
+
+/* =========================
+   Tablet (700px - 999px)
+========================= */
+@media (min-width:700px) and (max-width:999px) {
+
+    .design-drive-banner{
+        width:302px;
+        height:170px;
+        margin:5px 0 60px;
+    }
+
+}
+
+
+/* =========================
+   Small Desktop (1000px - 1300px)
+========================= */
+@media (min-width:1000px) and (max-width:1300px) {
+
+    .design-drive-banner{
+        width:329px;
+        height:185px;
+        margin:5px 0 70px;
+    }
+
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+.cursor-dot,
+.cursor-ring{
+    position:fixed;
+    top:0;
+    left:0;
+    isolation: isolate;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:99999;
+}
+
+.cursor-dot{
+    width:8px;
+    height:8px;
+    background:#FFF;
+    border-radius:50%;
+}
+
+.cursor-ring{
+    width:34px;
+    height:34px;
+    border:2px solid rgba(255,255,255);
+    border-radius:50%;
+
+    transform:translate3d(-50%,-50%,0) scale(1);
+
+    transition:
+        transform .18s cubic-bezier(.22,1,.36,1),
+        border-color .18s ease,
+        opacity .18s ease;
+
+    will-change:transform;
+    backface-visibility:hidden;
+}
+}
+
+.cursor-dot,
+.cursor-ring{
+
+    will-change:transform;
+
+    transform:translate3d(-50%,-50%,0);
+
+    backface-visibility:hidden;
+
+}
+.cursor-dot,
+.cursor-ring {
+}
+
+
+.cursor-ring.click{
+    transform:translate3d(-50%,-50%,0) scale(.72);
+}
+
+.cursor-ring.release{
+    transform:translate3d(-50%,-50%,0) scale(1.18);
+}
+
+.cursor-dot,
+.cursor-ring{
+    transition: opacity .18s ease;
+}
+
+.cursor-hidden{
+    opacity:0 !important;
+}
+
+@media (max-width:768px){
+
+/* Hide custom cursor on mobile */
+.cursor-dot,
+.cursor-ring{
+    display:none !important;
+}
+
+}
+
 
 
 </style>
 </head>
 <body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
 
 <div id="page-loader">
@@ -971,7 +1132,20 @@ text-allignment: center;
   <section id="designs" class="portfolio-section">
 
 <h4>DESIGNS</h4>
+<div class="design-drive-container">
 
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
+</a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div> 
         <div class="works-grid">
             
 
@@ -1276,11 +1450,20 @@ text-allignment: center;
  <section id="logo" class="portfolio-section">
 
 <h4>LOGO</h4>
-<a href="https://drive.google.com/drive/u/1/folders/1hqyVU6FFT8p3FCQnMd0AA8bPEUjTawa5"
-   target="_blank"
-   class="design-drive-banner">
-    <img src="YOUR_IMAGE_PATH.png" alt="Design Folder">
+<div class="design-drive-container">
+
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
 </a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div> 
          <div class="works-grid">
             
 
@@ -1473,11 +1656,20 @@ text-allignment: center;
 
 <section id="videoedits" class="portfolio-section">
 <h4>VIDEO EDITS</h4>
-<a href="https://drive.google.com/drive/u/1/folders/1hqyVU6FFT8p3FCQnMd0AA8bPEUjTawa5"
-   target="_blank"
-   class="design-drive-banner">
-    <img src="YOUR_IMAGE_PATH.png" alt="Design Folder">
+<div class="design-drive-container">
+
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
 </a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div> 
         <div class="works-grid">
             
 <div class="work-card" data-video-src="Works/Works/Video Edits/ARG Agri Machinery.mp4">
@@ -1853,11 +2045,20 @@ text-allignment: center;
 
 <section id="websites" class="portfolio-section">
 <h4>WEBSITES</h4>
-<a href="https://drive.google.com/drive/u/1/folders/1hqyVU6FFT8p3FCQnMd0AA8bPEUjTawa5"
-   target="_blank"
-   class="design-drive-banner">
-    <img src="YOUR_IMAGE_PATH.png" alt="Design Folder">
+<div class="design-drive-container">
+
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
 </a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div> 
          <div class="works-grid">
             
 
@@ -1975,13 +2176,24 @@ text-allignment: center;
 
 </sort>
 
+
+
 <section id="pdfdesigns" class="portfolio-section">
 <h4>PDF DESIGNS</h4>
-<a href="https://drive.google.com/drive/u/1/folders/1hqyVU6FFT8p3FCQnMd0AA8bPEUjTawa5"
-   target="_blank"
-   class="design-drive-banner">
-    <img src="YOUR_IMAGE_PATH.png" alt="Design Folder">
+<div class="design-drive-container">
+
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
 </a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div> 
          <div class="works-grid">
             
 
@@ -2149,8 +2361,745 @@ text-allignment: center;
         </div>
     </section>
 
+
+<section id="favorite-hurryep" class="portfolio-section">
+
+<h4>FAVOURITES @ HURRYEP </h4>
+<div class="design-drive-container">
+
+  <a href="javascript:void(0)" class="design-drive-banner"
+   onclick="document.getElementById('favorite-hurryep').scrollIntoView({behavior:'auto', block:'start'});">
+    <img src="images/others/Fav.gif" alt="Favourite Folder">
+</a>
+
+    <a href="https://drive.google.com/drive/u/1/folders/1Vu8XZ3Vni7k4hdPaMfrSc1_Xbhde8y5t"
+       target="_blank"
+       class="design-drive-banner">
+        <img src="images/others/YOUR_IMAGE_PATH.gif" alt="Design Folder">
+    </a>
+
+</div>     
+     
+<div class="works-grid">
+
+<!-- 1. Ajithram Construction - Bakrid -->
+<div class="work-card" data-video-src="Favourites/1.jpg">
+    <img src="Favourites/1.jpg" alt="Ajithram Construction Bakrid Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Bakrid Festival Poster</h3>
+        <p class="work-description">Festive social media design for Ajithram Construction celebrating Bakrid.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a modern festival greeting that reflects the brand identity while engaging customers across social media platforms.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 2. Ambiora - Labour Day -->
+<div class="work-card" data-video-src="Favourites/2.jpg">
+    <img src="Favourites/2.jpg" alt="Ambiora Labour Day Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Labour Day Campaign</h3>
+        <p class="work-description">Labour Day greeting poster designed for Ambiora Curtains.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a clean and elegant festival-themed design highlighting appreciation for hardworking professionals while maintaining the premium curtain brand aesthetic.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 3 -->
+<div class="work-card" data-video-src="Favourites/3.jpg">
+    <img src="Favourites/3.jpg" alt="Ambiora Tamil New Year Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Tamil New Year Wishes</h3>
+        <p class="work-description">Festive Tamil New Year social media poster for Ambiora.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a vibrant seasonal greeting with elegant visuals that complements the premium curtain collection and festive celebration.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 4 -->
+<div class="work-card" data-video-src="Favourites/4.jpg">
+    <img src="Favourites/4.jpg" alt="CK Masala Social Media Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">CK Masala Social Campaign</h3>
+        <p class="work-description">Creative promotional social media poster for CK Masala.</p>
+    </div>
+    <div class="work-details">
+        <p>Developed an eye-catching campaign highlighting product quality and brand presence with bold food-focused visuals.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 5 -->
+<div class="work-card" data-video-src="Favourites/5.jpg">
+    <img src="Favourites/5.jpg" alt="CK Masala Advertisement" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">CK Masala Advertisement</h3>
+        <p class="work-description">Promotional advertisement poster for CK Masala products.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a marketing-focused advertisement emphasizing product appeal, freshness, and brand visibility.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 6 -->
+<div class="work-card" data-video-src="Favourites/6.jpg">
+    <img src="Favourites/6.jpg" alt="Cliqkeys Bakrid Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Bakrid Celebration Poster</h3>
+        <p class="work-description">Bakrid greeting design for Cliqkeys gaming accessories.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a festive social media visual combining celebration with the brand's modern gaming identity.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 7 -->
+<div class="work-card" data-video-src="Favourites/7.jpg">
+    <img src="Favourites/7.jpg" alt="Cliqkeys Labour Day Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Labour Day Tribute</h3>
+        <p class="work-description">Labour Day social media creative for Cliqkeys.</p>
+    </div>
+    <div class="work-details">
+        <p>Produced a professional campaign appreciating dedication and hard work while reinforcing the technology brand identity.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 8 -->
+<div class="work-card" data-video-src="Favourites/8.jpg">
+    <img src="Favourites/8.jpg" alt="Penguin Story Books Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Trending Story Book Campaign</h3>
+        <p class="work-description">Creative promotional poster for Penguin Custom Story Books.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed an engaging social media campaign promoting personalized story books with playful visuals.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 9 -->
+<div class="work-card" data-video-src="Favourites/9.png">
+    <img src="Favourites/9.png" alt="Penguin New Year Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">New Year Greetings</h3>
+        <p class="work-description">New Year celebration poster for Penguin Custom Story Books.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a cheerful seasonal greeting encouraging memorable gifting through personalized story books.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 10 -->
+<div class="work-card" data-video-src="Favourites/10.jpg">
+    <img src="Favourites/10.jpg" alt="Flyon Pongal Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Pongal Festival Poster</h3>
+        <p class="work-description">Festive Pongal greeting designed for Flyon Courier.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a colorful celebration-themed design reflecting the spirit of Pongal while maintaining brand consistency.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 11 -->
+<div class="work-card" data-video-src="Favourites/11.jpg">
+    <img src="Favourites/11.jpg" alt="Flyon Social Campaign" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Trending Social Campaign</h3>
+        <p class="work-description">Creative promotional poster for Flyon Courier.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a modern social media visual to improve engagement and strengthen the courier brand presence.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 12 -->
+<div class="work-card" data-video-src="Favourites/12.png">
+    <img src="Favourites/12.png" alt="Flyon Christmas Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Christmas Greetings</h3>
+        <p class="work-description">Christmas celebration poster for Flyon Courier.</p>
+    </div>
+    <div class="work-details">
+        <p>Developed a festive holiday campaign blending seasonal elements with the courier company's branding.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 13 -->
+<div class="work-card" data-video-src="Favourites/13.jpg">
+    <img src="Favourites/13.jpg" alt="Grace Easter Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Easter Celebration</h3>
+        <p class="work-description">Festive Easter greeting for Grace Hospitalities.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed an elegant Easter-themed social media creative reflecting warmth, hospitality, and celebration.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 14 -->
+<div class="work-card" data-video-src="Favourites/14.jpg">
+    <img src="Favourites/14.jpg" alt="Grace Ramadan Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Ramadan Greetings</h3>
+        <p class="work-description">Ramadan celebration poster for Grace Hospitalities.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a graceful Ramadan-themed design with premium hospitality branding and festive visuals.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 15 -->
+<div class="work-card" data-video-src="Favourites/15.jpg">
+    <img src="Favourites/15.jpg" alt="Grace Hotel Easter Promotion" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Easter Hotel Promotion</h3>
+        <p class="work-description">Easter-themed promotional poster featuring premium hotel rooms.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a seasonal hospitality campaign showcasing comfortable accommodations with festive appeal.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 16. Hurryep Tech Hiring -->
+<div class="work-card" data-video-src="Favourites/16.jpg">
+    <img src="Favourites/16.jpg" alt="Hurryep Technologies Hiring Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Hiring Campaign</h3>
+        <p class="work-description">Recruitment poster for Hurryep Technologies career opportunities.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a modern hiring campaign highlighting job openings, key requirements, and career opportunities to attract qualified candidates.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 17. Hurryep Tech Walk-in -->
+<div class="work-card" data-video-src="Favourites/17.jpg">
+    <img src="Favourites/17.jpg" alt="Hurryep Technologies Walk-in Drive" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Walk-in Recruitment Drive</h3>
+        <p class="work-description">Walk-in interview announcement poster for Hurryep Technologies.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a recruitment announcement featuring interview schedules, eligibility details, and company branding for maximum visibility.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 18. Kavitha College -->
+<div class="work-card" data-video-src="Favourites/18.jpg">
+    <img src="Favourites/18.jpg" alt="Kavitha College Admission Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">College Admission Campaign</h3>
+        <p class="work-description">Admission promotion for CSE and AI & DS programs.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed an admission campaign showcasing academic programs, facilities, and enrollment information for prospective students.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 19. MG Interior -->
+<div class="work-card" data-video-src="Favourites/19.jpg">
+    <img src="Favourites/19.jpg" alt="MG Interior Social Media Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Interior Design Campaign</h3>
+        <p class="work-description">Creative social media poster for MG Interior.</p>
+    </div>
+    <div class="work-details">
+        <p>Developed a premium promotional design highlighting stylish interior solutions with a clean and modern visual approach.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 20. MG Interior -->
+<div class="work-card" data-video-src="Favourites/20.jpg">
+    <img src="Favourites/20.jpg" alt="MG Interior Brand Promotion" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Interior Brand Promotion</h3>
+        <p class="work-description">Marketing poster promoting modern interior services.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a visually engaging promotional creative emphasizing craftsmanship, elegance, and contemporary living spaces.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 21. SEC HR Conclave -->
+<div class="work-card" data-video-src="Favourites/21.jpg">
+    <img src="Favourites/21.jpg" alt="HR Conclave Chief Guest Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">HR Conclave Chief Guest</h3>
+        <p class="work-description">Chief guest announcement poster for HR Conclave.</p>
+    </div>
+    <div class="work-details">
+        <p>Created an event promotion highlighting the keynote speaker while maintaining a professional academic presentation.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 22. SEC Guest -->
+<div class="work-card" data-video-src="Favourites/22.jpg">
+    <img src="Favourites/22.jpg" alt="HR Conclave Guest Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Guest Speaker Spotlight</h3>
+        <p class="work-description">Individual guest introduction poster for HR Conclave.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a professional guest profile highlighting expertise, achievements, and event participation.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 23. Women's Day -->
+<div class="work-card" data-video-src="Favourites/23.jpg">
+    <img src="Favourites/23.jpg" alt="Women's Day Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Women's Day Celebration</h3>
+        <p class="work-description">Women's Day campaign for SK Marketing Home Appliances.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a vibrant Women's Day greeting celebrating strength, inspiration, and appreciation while promoting the brand.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 24. Mother's Day -->
+<div class="work-card" data-video-src="Favourites/24.jpg">
+    <img src="Favourites/24.jpg" alt="Mother's Day Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Mother's Day Greetings</h3>
+        <p class="work-description">Mother's Day social media campaign for SMSCAP Abroad Consultancy.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a heartfelt festival-themed design combining appreciation with the brand's educational consulting identity.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 25. SRG -->
+<div class="work-card" data-video-src="Favourites/25.jpg">
+    <img src="Favourites/25.jpg" alt="SRG College Admission Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">B.Tech Admission Campaign</h3>
+        <p class="work-description">Admission promotion for AI & DS program at SRG College.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a student-focused admission campaign highlighting academic excellence, facilities, and future career opportunities.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 26 -->
+<div class="work-card" data-video-src="Favourites/26.jpg">
+    <img src="Favourites/26.jpg" alt="SubraX Trading Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Trading Education Campaign</h3>
+        <p class="work-description">Educational social media poster for SubraX Trading Academy.</p>
+    </div>
+    <div class="work-details">
+        <p>Created an informative campaign promoting trading education, market awareness, and skill development.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 27 -->
+<div class="work-card" data-video-src="Favourites/27.jpg">
+    <img src="Favourites/27.jpg" alt="AI Trading Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">AI Trading Solutions</h3>
+        <p class="work-description">Promotional campaign featuring AI-powered trading solutions.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a technology-driven promotional poster emphasizing automation, analytics, and smart trading strategies.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 28 -->
+<div class="work-card" data-video-src="Favourites/28.jpg">
+    <img src="Favourites/28.jpg" alt="Trading Strategy Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Smart Trading Strategies</h3>
+        <p class="work-description">Educational social media campaign for traders.</p>
+    </div>
+    <div class="work-details">
+        <p>Developed a modern promotional design encouraging traders to learn strategies and improve market performance.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 29 -->
+<div class="work-card" data-video-src="Favourites/29.jpg">
+    <img src="Favourites/29.jpg" alt="SubraX Bakrid Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Bakrid Festival Greetings</h3>
+        <p class="work-description">Bakrid celebration poster for SubraX Trading Academy.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a festive greeting combining seasonal celebration with a modern financial brand identity.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 30 -->
+<div class="work-card" data-video-src="Favourites/30.jpg">
+    <img src="Favourites/30.jpg" alt="SubraX Labour Day Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Labour Day Tribute</h3>
+        <p class="work-description">Labour Day appreciation poster for SubraX Trading Academy.</p>
+    </div>
+    <div class="work-details">
+        <p>Created a meaningful Labour Day campaign recognizing dedication, commitment, and professional excellence.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 31 -->
+<div class="work-card" data-video-src="Favourites/31.jpg">
+    <img src="Favourites/31.jpg" alt="SubraX Ramadan Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Ramadan Greetings</h3>
+        <p class="work-description">Ramadan festival poster for SubraX Trading Academy.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed an elegant Ramadan greeting celebrating the festive season while maintaining the academy's professional branding.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 32 -->
+<div class="work-card" data-video-src="Favourites/32.jpg">
+    <img src="Favourites/32.jpg" alt="Vedo Redo Bakrid Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Bakrid Celebration Poster</h3>
+        <p class="work-description">Bakrid social media greeting for Vedo Redo Construction.</p>
+    </div>
+    <div class="work-details">
+        <p>Produced a festive construction brand campaign blending celebration with a clean and professional design style.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+<!-- 33 -->
+<div class="work-card" data-video-src="Favourites/33.jpg">
+    <img src="Favourites/33.jpg" alt="Mother's Day Printing Poster" class="work-image">
+    <div class="work-media-zoom"><div class="media-loader"></div></div>
+    <div class="work-overlay">
+        <h3 class="work-title">Mother's Day Printing Campaign</h3>
+        <p class="work-description">Mother's Day promotional poster for Xerox Kadai Printing Services.</p>
+    </div>
+    <div class="work-details">
+        <p>Designed a heartfelt Mother's Day campaign promoting personalized printing solutions with a warm and creative visual style.</p>
+        <div class="project-stats">
+            <p><strong>Role:</strong> Graphic Designer</p>
+            <p><strong>Year:</strong> 2025</p>
+        </div>
+    </div>
+    <button class="close-button" onclick="closePreview(event,0)">×</button>
+</div>
+
+</div>
+    </section>
+
   
 <script>
+
+
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+const dot = document.querySelector(".cursor-dot");
+const ring = document.querySelector(".cursor-ring");
+
+let cursorStarted = false;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let dotX = 0;
+let dotY = 0;
+
+let ringX = 0;
+let ringY = 0;
+
+document.addEventListener("mousemove", (e) => {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!cursorStarted) {
+
+        cursorStarted = true;
+
+        dot.style.opacity = "1";
+        ring.style.opacity = "1";
+
+        dotX = mouseX;
+        dotY = mouseY;
+
+        ringX = mouseX;
+        ringY = mouseY;
+    }
+
+});
+
+let frame = 0;
+
+function animateCursor(){
+
+    if(cursorStarted){
+
+        dotX += (mouseX-dotX)*0.36;
+        dotY += (mouseY-dotY)*0.36;
+
+        dot.style.transform =
+        `translate3d(${dotX}px,${dotY}px,0) translate(-50%,-50%)`;
+
+        frame++;
+
+        if(frame % 2 === 0){
+
+            ringX += (dotX-ringX)*0.36;
+            ringY += (dotY-ringY)*0.36;
+
+const scale =
+    ring.classList.contains("click") ? 0.72 :
+    ring.classList.contains("release") ? 1.18 : 1;
+
+ring.style.transform =
+`translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%) scale(${scale})`;
+        }
+
+    }
+
+    requestAnimationFrame(animateCursor);
+}
+
+if (window.innerWidth > 768) {
+    animateCursor();
+}
+document.addEventListener("mousedown", () => {
+    ring.classList.remove("release");
+    ring.classList.add("click");
+});
+
+document.addEventListener("mouseup", () => {
+    ring.classList.remove("click");
+    ring.classList.add("release");
+
+    clearTimeout(ring.releaseTimer);
+    ring.releaseTimer = setTimeout(() => {
+        ring.classList.remove("release");
+    }, 120);
+});
+
+/* Hide cursor when leaving browser window */
+
+document.addEventListener("mouseout", (e) => {
+
+    if (!e.relatedTarget && !e.toElement) {
+        dot.classList.add("cursor-hidden");
+        ring.classList.add("cursor-hidden");
+    }
+
+});
+
+document.addEventListener("mouseover", () => {
+
+    dot.classList.remove("cursor-hidden");
+    ring.classList.remove("cursor-hidden");
+
+});
+
+
+window.history.scrollRestoration = "manual";
+
+window.addEventListener("load", () => {
+    window.scrollTo(0, 0);
+});
+
+
+
 
   window.addEventListener('load', () => {
     const loader = document.getElementById('page-loader');
@@ -2255,7 +3204,7 @@ window.addEventListener("scroll", () => {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.9);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: 900;
@@ -2651,8 +3600,8 @@ controls.appendChild(fullscreenButton);
         setTimeout(() => {
             card.style.top = "50%";
             card.style.left = "50%";
-            card.style.width = "600px";
-            card.style.maxWidth = "90%";
+            card.style.width = "520px";
+            card.style.maxWidth = "100%";
             card.style.height = "auto";
             card.style.minHeight = "auto";
             card.style.transform = "translate(-50%, -50%)";

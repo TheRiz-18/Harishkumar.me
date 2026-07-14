@@ -790,9 +790,117 @@ h4 {     font-size: 1em;
 }
 
 
+
+/* Scroll Drop Animation */
+.work-card {
+    opacity: 0;
+    transform: translateY(-60px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(.22,1,.36,1);
+    transition-delay: var(--delay, 0ms);
+}
+
+.work-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+.cursor-dot,
+.cursor-ring{
+    position:fixed;
+    top:0;
+    left:0;
+    isolation: isolate;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:99999;
+}
+
+.cursor-dot{
+    width:8px;
+    height:8px;
+    background:#FFF;
+    border-radius:50%;
+}
+
+.cursor-ring{
+    width:34px;
+    height:34px;
+    border:2px solid rgba(255,255,255);
+    border-radius:50%;
+
+    transform:translate3d(-50%,-50%,0) scale(1);
+
+    transition:
+        transform .18s cubic-bezier(.22,1,.36,1),
+        border-color .18s ease,
+        opacity .18s ease;
+
+    will-change:transform;
+    backface-visibility:hidden;
+}
+}
+
+.cursor-dot,
+.cursor-ring{
+
+    will-change:transform;
+
+    transform:translate3d(-50%,-50%,0);
+
+    backface-visibility:hidden;
+
+}
+.cursor-dot,
+.cursor-ring {
+}
+
+
+.cursor-ring.click{
+    transform:translate3d(-50%,-50%,0) scale(.72);
+}
+
+.cursor-ring.release{
+    transform:translate3d(-50%,-50%,0) scale(1.18);
+}
+
+.cursor-dot,
+.cursor-ring{
+    transition: opacity .18s ease;
+}
+
+.cursor-hidden{
+    opacity:0 !important;
+}
+
+@media (max-width:768px){
+
+/* Hide custom cursor on mobile */
+.cursor-dot,
+.cursor-ring{
+    display:none !important;
+}
+
+}
+
+
+
+
+
 </style>
 </head>
 <body>
+
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+
 <div id="page-loader">
   <div class="loader-circle-87"></div>
 </div>
@@ -1087,6 +1195,116 @@ h4 {     font-size: 1em;
   
 <script>
 
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+const dot = document.querySelector(".cursor-dot");
+const ring = document.querySelector(".cursor-ring");
+
+let cursorStarted = false;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let dotX = 0;
+let dotY = 0;
+
+let ringX = 0;
+let ringY = 0;
+
+document.addEventListener("mousemove", (e) => {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!cursorStarted) {
+
+        cursorStarted = true;
+
+        dot.style.opacity = "1";
+        ring.style.opacity = "1";
+
+        dotX = mouseX;
+        dotY = mouseY;
+
+        ringX = mouseX;
+        ringY = mouseY;
+    }
+
+});
+
+let frame = 0;
+
+function animateCursor(){
+
+    if(cursorStarted){
+
+        dotX += (mouseX-dotX)*0.36;
+        dotY += (mouseY-dotY)*0.36;
+
+        dot.style.transform =
+        `translate3d(${dotX}px,${dotY}px,0) translate(-50%,-50%)`;
+
+        frame++;
+
+        if(frame % 2 === 0){
+
+            ringX += (dotX-ringX)*0.36;
+            ringY += (dotY-ringY)*0.36;
+
+const scale =
+    ring.classList.contains("click") ? 0.72 :
+    ring.classList.contains("release") ? 1.18 : 1;
+
+ring.style.transform =
+`translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%) scale(${scale})`;
+        }
+
+    }
+
+    requestAnimationFrame(animateCursor);
+}
+
+if (window.innerWidth > 768) {
+    animateCursor();
+}
+document.addEventListener("mousedown", () => {
+    ring.classList.remove("release");
+    ring.classList.add("click");
+});
+
+document.addEventListener("mouseup", () => {
+    ring.classList.remove("click");
+    ring.classList.add("release");
+
+    clearTimeout(ring.releaseTimer);
+    ring.releaseTimer = setTimeout(() => {
+        ring.classList.remove("release");
+    }, 120);
+});
+
+/* Hide cursor when leaving browser window */
+
+document.addEventListener("mouseout", (e) => {
+
+    if (!e.relatedTarget && !e.toElement) {
+        dot.classList.add("cursor-hidden");
+        ring.classList.add("cursor-hidden");
+    }
+
+});
+
+document.addEventListener("mouseover", () => {
+
+    dot.classList.remove("cursor-hidden");
+    ring.classList.remove("cursor-hidden");
+
+});
+
+
+
+
   window.addEventListener('load', () => {
     const loader = document.getElementById('page-loader');
     if (loader) {
@@ -1190,7 +1408,7 @@ window.addEventListener("scroll", () => {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.9);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: 900;
@@ -1586,8 +1804,8 @@ controls.appendChild(fullscreenButton);
         setTimeout(() => {
             card.style.top = "50%";
             card.style.left = "50%";
-            card.style.width = "600px";
-            card.style.maxWidth = "90%";
+            card.style.width = "520px";
+            card.style.maxWidth = "100%";
             card.style.height = "auto";
             card.style.minHeight = "auto";
             card.style.transform = "translate(-50%, -50%)";
@@ -1764,6 +1982,38 @@ document.addEventListener('click', (event) => {
     nav.classList.remove('active');
     hamburger.classList.remove('active');
   }
+});
+
+
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const cards = document.querySelectorAll(".work-card");
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry, index) => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.style.setProperty("--delay", `${index * 120}ms`);
+
+                entry.target.classList.add("show");
+
+                observer.unobserve(entry.target);
+            }
+
+        });
+
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -80px 0px"
+    });
+
+    cards.forEach(card => observer.observe(card));
+
 });
 
 </script>

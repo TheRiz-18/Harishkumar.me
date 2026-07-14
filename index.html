@@ -24,18 +24,60 @@
 
 
 
-body {             background-image: url('images/Bg/Riz-background.jpg'); transition: background-image 1s ease-in-out;
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
- color: #fff; overflow-x: hidden; margin-top: 20%; margin-bottom: 5%; margin-left: 50px; }
+body{
+    position: relative;
+    background: #927147; /* fallback only */
+
+    overflow-x: hidden;
+    margin-top: 20%;
+    margin-bottom: 5%;
+    margin-left: 50px;
+}
+
+/* First background */
+body::after{
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background: url("images/Bg/Riz-background.png") center center / cover no-repeat;
+    pointer-events: none;
+}
+
+/* Second background */
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: url("images/Bg/Riz-background-2.jpeg") center center / cover no-repeat;
+
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+
+    pointer-events: none;
+}
+
+body.fade-bg::before{
+    opacity: 1;
+}
 
 /* ===========================
    HEADER
 =========================== */
+
+header{
+    display:none;
+}
 header {
-  position:fixed;top:1%;left:50%;transform:translateX(-50%);
-  width:88%;background:transparent;backdrop-filter:blur(50px);
+  position:fixed;top:1%;left:50%;transform:translateX(-50%) translateZ(0);
+
+    will-change:transform;
+    backface-visibility:hidden;
+
+  width:88%;background:transparent;backdrop-filter:blur(18px);
   display:flex;justify-content:space-around;align-items:center;
   padding:18px 36px;border-radius:20px;z-index:1000;
   box-shadow:0 2px 10px rgba(0,0,0,0.2);
@@ -153,7 +195,7 @@ font-size:1rem;line-height:1.6;margin-top:1rem;    text-align: justify;}
 }
 .timeline-card:hover .timeline-dot {transform:scale(1.2);box-shadow:0 0 15px rgba(255,211,105,1);}
 .exp-card {
-  background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);border-radius:0px 30px 30px 30px;
+  background:rgba(0,0,0,0.4);border-radius:0px 30px 30px 30px;
   padding:1.8rem;width:100%;text-align:left;
   box-shadow:0 5px 15px rgba(0,0,0,0.5);transition:0.3s;position:relative;
 }
@@ -198,7 +240,7 @@ font-size:1rem;line-height:1.6;margin-top:1rem;    text-align: justify;}
 .category-title {font-size:1.5rem;color:#fff;font-family:"RingbearerMedium-51mgZ",sans-serif;font-weight:normal;margin-bottom:1rem;margin-top:40px;margin-bottom:40px;}
 .skills-grid {display:flex;flex-wrap:wrap;gap:1rem;margin-left: 50px; }
 .skill-card {
-  background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);box-shadow:0 6px 20px rgba(0,0,0,0.4);
+  background:rgba(0,0,0,0.4);box-shadow:0 6px 20px rgba(0,0,0,0.4);
 padding:1rem;border-radius:50px 50px 0px 50px;
   width:120px;height:130px;position:relative;text-align:center;
   transition:0.3s;
@@ -227,9 +269,9 @@ padding:1rem;border-radius:50px 50px 0px 50px;
         height: 100%;
         margin: 0;
         padding: 0;
-        background: url('images/Bg/Riz-mobile.jpg') no-repeat center center fixed;
+        background: url('images/Bg/Riz-mobile.JPG') no-repeat center center fixed;
         background-size: cover;
-        background-color: #2d1f16; /* fallback color when image isn't visible */
+        background-color: #927147; /* fallback color when image isn't visible */
 overscroll-behavior-y: auto;
     }
 
@@ -239,6 +281,11 @@ overscroll-behavior-y: auto;
         margin-left: 5px;
         margin-right: 0;
     }
+
+body::before,
+body::after{
+    display:none;
+}
 
   /* HEADER */
   header {
@@ -434,26 +481,586 @@ border-top:1px solid white;
   }
 }
 
+#page-content{
+    transform: translateY(-120%);
+}
+
+.page-enter{
+    animation: pageEnter 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes pageEnter{
+
+    0%{
+        transform: translateY(-120%);
+    }
+
+    70%{
+        transform: translateY(25px);
+    }
+
+    85%{
+        transform: translateY(-10px);
+    }
+
+    100%{
+        transform: translateY(0);
+    }
+
+}
+
+.page-enter{
+    animation: pageEnter 2s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+
+
+
+
+
+
+.timeline-card,
+.skill-card{
+    opacity:1;
+}
+
+.timeline-card.animate,
+.skill-card.animate{
+    opacity:0;
+}
+
+.timeline-card.show,
+.skill-card.show{
+    animation:dropCard .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes dropCard{
+
+    0%{
+        opacity:0;
+        transform:translateY(-50px);
+    }
+
+    70%{
+        opacity:1;
+        transform:translateY(10px);
+    }
+
+    100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* Intro GIF Overlay */
+
+/* Intro GIF Overlay */
+#intro-gif{
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(120%);
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    z-index: 2999;
+
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+#intro-gif.show{
+    opacity: 1;
+    visibility: visible;
+    animation: waveTravel 8s linear forwards;
+}
+
+#intro-gif.hide{
+    opacity: 0;
+    visibility: hidden;
+}
+
+#intro-gif img{
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+}
+
+@keyframes waveTravel{
+
+    /* 0 sec - completely below viewport */
+    0%{
+        transform: translateX(-100%) translateY(100%);
+    }
+
+    /* around 4 sec - middle of screen */
+    5%{
+        transform: translateX(-100%) translateY(0%);
+    }
+
+    /* around 4 sec - middle of screen */
+    60%{
+        transform: translateX(-100%) translateY(0%);
+    }
+
+    /* 7 sec - 10% gap from top */
+    65%{
+        transform: translateX(-100%) translateY(-8%);
+    }
+
+    /* 8 sec - exits through bottom */
+    75%{
+        transform: translateX(-100%) translateY(100%);
+    }
+
+}
+
+@media (max-width:768px){
+
+    /* Full screen GIF without breaking animation */
+    #intro-gif{
+left: 100%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+
+
+    }
+
+    #intro-gif img{
+        width:75%;
+        height:75%;
+        object-fit:cover;
+    }
+
+}
+
+
+@media (max-width:1080px){
+
+    /* Full screen GIF without breaking animation */
+    #intro-gif{
+left: 100%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+
+    background: transparent;
+
+
+    }
+
+    #intro-gif img{
+        width:75%;
+        height:75%;
+        object-fit:cover;
+    }
+
+}
+
+
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+.cursor-dot,
+.cursor-ring{
+    position:fixed;
+    top:0;
+    left:0;
+    isolation: isolate;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:99999;
+}
+
+.cursor-dot{
+    width:8px;
+    height:8px;
+    background:#FFF;
+    border-radius:50%;
+}
+
+.cursor-ring{
+    width:34px;
+    height:34px;
+    border:2px solid rgba(255,255,255);
+    border-radius:50%;
+
+    transform:translate3d(-50%,-50%,0) scale(1);
+
+    transition:
+        transform .18s cubic-bezier(.22,1,.36,1),
+        border-color .18s ease,
+        opacity .18s ease;
+
+    will-change:transform;
+    backface-visibility:hidden;
+}
+}
+
+.cursor-dot,
+.cursor-ring{
+
+    will-change:transform;
+
+    transform:translate3d(-50%,-50%,0);
+
+    backface-visibility:hidden;
+
+}
+.cursor-dot,
+.cursor-ring {
+}
+
+
+.cursor-ring.click{
+    transform:translate3d(-50%,-50%,0) scale(.72);
+}
+
+.cursor-ring.release{
+    transform:translate3d(-50%,-50%,0) scale(1.18);
+}
+
+.cursor-dot,
+.cursor-ring{
+    transition: opacity .18s ease;
+}
+
+.cursor-hidden{
+    opacity:0 !important;
+}
+
+@media (max-width:768px){
+
+/* Hide custom cursor on mobile */
+.cursor-dot,
+.cursor-ring{
+    display:none !important;
+}
+
+}
+
+
+/* ===========================
+   WORKS HINT
+=========================== */
+
+
+.works-link{
+    position:relative;
+}
+
+.works-tip{
+    position:absolute;
+    left:50%;
+    bottom:-72px;
+    transform:translateX(-50%);
+
+    display:flex;
+    align-items:center;
+    gap:1px;
+
+    padding:10px 16px;
+
+    background:rgba(20,20,20,1);
+    color:#fffff;
+
+    border:1px solid rgba(255,211,105,.4);
+    border-radius:14px;
+
+    white-space:nowrap;
+
+    font-size:.72rem;
+    font-family:"dogicapixel",sans-serif;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.35),
+        0 0 18px rgba(255,211,105,.15);
+}
+
+.works-tip::before{
+    content:"";
+    position:absolute;
+
+    top:-7px;
+    left:50%;
+
+    width:12px;
+    height:12px;
+
+    background:inherit;
+
+    border-left:1px solid rgba(255,211,105,.4);
+    border-top:1px solid rgba(255,211,105,.4);
+
+    transform:translateX(-50%) rotate(45deg);
+}
+
+.works-tip span{
+    display:inline-block;
+    animation:waveLetters 1.6s ease-in-out infinite;
+}
+
+.works-tip span:nth-child(1){animation-delay:.05s;}
+.works-tip span:nth-child(2){animation-delay:.10s;}
+.works-tip span:nth-child(3){animation-delay:.15s;}
+.works-tip span:nth-child(4){animation-delay:.20s;}
+.works-tip span:nth-child(5){animation-delay:.25s;}
+.works-tip span:nth-child(6){animation-delay:.30s;}
+.works-tip span:nth-child(7){animation-delay:.35s;}
+.works-tip span:nth-child(8){animation-delay:.40s;}
+.works-tip span:nth-child(9){animation-delay:.45s;}
+.works-tip span:nth-child(10){animation-delay:.50s;}
+.works-tip span:nth-child(11){animation-delay:.55s;}
+.works-tip span:nth-child(12){animation-delay:.60s;}
+.works-tip span:nth-child(13){animation-delay:.65s;}
+.works-tip span:nth-child(14){animation-delay:.70s;}
+.works-tip span:nth-child(15){animation-delay:.75s;}
+.works-tip span:nth-child(16){animation-delay:.80s;}
+.works-tip span:nth-child(17){animation-delay:.85s;}
+.works-tip span:nth-child(18){animation-delay:.90s;}
+.works-tip span:nth-child(19){animation-delay:.95s;}
+.works-tip span:nth-child(20){animation-delay:1s;}
+.works-tip span:nth-child(21){animation-delay:1.05s;}
+.works-tip span:nth-child(22){animation-delay:1.10s;}
+.works-tip span:nth-child(23){animation-delay:1.15s;}
+.works-tip span:nth-child(24){animation-delay:1.20s;}
+.works-tip span:nth-child(25){animation-delay:1.25s;}
+
+@keyframes waveLetters{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    25%{
+        transform:translateY(-2px);
+    }
+
+    50%{
+        transform:translateY(0);
+    }
+
+    75%{
+        transform:translateY(2px);
+    }
+
+}
+
+.works-tip{
+    opacity:0;
+    visibility:hidden;
+    transform:translateX(-50%) translateY(10px);
+    transition:
+        opacity .6s ease,
+        transform .6s ease,
+        visibility .6s;
+}
+
+.works-tip.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+}
+.menu-note{
+    display:none;
+}
+
+
+@media (max-width:768px){
+
+/* ===========================
+   MOBILE HAMBURGER HINT
+=========================== */
+
+.hamburger{
+    position:relative;
+}
+
+.menu-note{
+    position:absolute;
+    top:36px;
+    left:-100%;
+    transform:translateX(-50%);
+    display:block;
+
+    width:90px;
+
+    text-align:center;
+
+    font-size:12px;
+    line-height:1.5;
+
+    color:#fff;
+    font-family:"dogicapixel",sans-serif;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.5s;
+
+    animation:menuBounce 1.4s ease-in-out infinite;
+}
+.menu-note.hide{
+    opacity:0 !important;
+    visibility:hidden !important;
+    display:none !important;
+}
+.menu-note.show{
+    opacity:1;
+    visibility:visible;
+}
+@keyframes menuBounce{
+
+    0%,100%{
+        transform:translateX(-50%) translateY(0);
+    }
+
+    50%{
+        transform:translateX(-50%) translateY(4px);
+    }
+
+}
+
+
+
+/* Hide automatically when menu opens */
+.hamburger.active .menu-note{
+    opacity:0;
+    visibility:hidden;
+}
+
+/* Hide desktop WORKS tooltip on mobile */
+.works-link .works-tip{
+    display:none !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+}
+
+}
+
+
+
+
+
+.exp-top{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:12px;
+}
+
+.company-logo{
+    width:58px;
+    height:58px;
+    object-fit:contain;
+    flex-shrink:0;
+    border-radius:12px;
+    background:rgba(255,255,255,.05);
+    padding:6px;
+}
+
+.exp-info{
+    flex:1;
+}
+
+.exp-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+}
+
+.company{
+    margin-top:4px;
+}
+
+
+
+@media (max-width: 1080px) {
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: url('images/Bg/Riz-1080.JPG') no-repeat center center fixed;
+        background-size: cover;
+        background-color: #927147; /* fallback color when image isn't visible */
+overscroll-behavior-y: auto;
+    }
+
+    body {
+        margin-top: 80%;
+        margin-bottom: 50px;
+        margin-left: 5px;
+        margin-right: 0;
+    }
+
+body::before,
+body::after{
+    display:none;
+}
+
 </style>
 </head>
 <body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
 
 <div id="page-loader">
   <div class="loader-circle-87"></div>
 </div>
 
+<div id="intro-gif">
+    <img src="images/others/wave.GIF" alt="Intro">
+</div>
+
 
   <header>
   <div class="logo">Portfolio</div>
-  <div class="hamburger">
+
+<div class="hamburger">
     <span></span>
     <span></span>
     <span></span>
-  </div>
+
+    <div class="menu-note">
+        Click Here ⤴ <br>
+        And Check Out My WORKS
+    </div>
+</div>
+
   <nav>
-    <a href="index.html" class="active">HOME</a>
-    <a href="works.html">WORKS</a>
-    <a href="certificate.html">CERTIFICATE</a>
+    <a href="index.html" class="active">HOME</a><a href="works.html" class="works-link">
+    WORKS
+
+    <span class="works-tip">
+        <span>C</span><span>l</span><span>i</span><span>c</span><span>k</span>
+        <span>&nbsp;</span>
+        <span>H</span><span>e</span><span>r</span><span>e</span>
+        <span>&nbsp;</span>
+        <span>T</span><span>o</span>
+        <span>&nbsp;</span>
+        <span>V</span><span>i</span><span>e</span><span>w</span>
+        <span>&nbsp;</span>
+        <span>M</span><span>y</span>
+        <span>&nbsp;</span>
+        <span>W</span><span>O</span><span>R</span><span>K</span><span>S</span>
+    </span>
+</a><a href="certificate.html">CERTIFICATE</a>
     <a href="resume.html">RESUME</a>
     <a href="contact.html">CONTACT</a>
   </nav>
@@ -462,6 +1069,7 @@ border-top:1px solid white;
 
   
  
+<div id="page-content">
 
 
   
@@ -484,39 +1092,57 @@ border-top:1px solid white;
   </div>
 
   <!-- Second Home Container -->
-  <div class="experience section " id="experiencesection ">
-      <section id="experience" class="experience-timeline">
+<div class="experience section drop-section"> 
+     <section id="experience" class="experience-timeline">
   <p2 class="section-title">Experience</p2>
   <div class="timeline-container">
     <!-- Card 1 -->
     <div class="timeline-card" data-aos="fade-up">
       <div class="timeline-dot"></div>
-      <div class="exp-card">
+
+
+<div class="exp-card">
+
+    <div class="exp-top">
+    <img src="images/logo/hurryep-logo.png" alt="Hurryep Tech" class="company-logo">
+
+    <div class="exp-info">
         <div class="exp-header">
-          <h4>Digital Marketing </h4>
-          <span class="exp-date">Jun 2024 – Aug 2025</span>
+            <h4>Graphic Designer </h4>
+            <span class="exp-date">Dec 2025 – Till Now</span>
         </div>
-        <p class="company">Skyplanet Holidays · Madurai</p>
+        <p class="company">Hurryep Technology · Madurai</p>
+    </div>
+</div>
         <div class="tags">
-          <span>Canva</span><span>Excel</span><span>CapCut</span><span>After Effects</span>
-          <span>Meta Ads</span><span>Google Ads</span><span>YouTube Ads</span><span>SEO</span>
+          <span>Canva</span><span>Excel</span><span>Figma</span><span>Photoshops</span>
+          <span>AI Tools</span>
         </div>
         <p class="exp-desc">
-          ✾ Created impactful posts and promotional videos.<br>
-          ✾ Managed paid campaigns across multiple ad platforms.<br>
-          ✾ Increased brand visibility with SEO strategies.
-        </p>
+  ✾ Crafted modern social media and promotional designs.<br>
+  ✾ Designed creative banners, blog visuals, and web graphics.<br>
+  ✾ Built unique logos and impactful brand identities.<br>
+  ✾ Created AI-enhanced visuals for high-converting campaigns.
+</p>
       </div>
     </div>
     <!-- Card 2 -->
-    <div class="timeline-card" data-aos="fade-up" data-aos-delay="200">
-      <div class="timeline-dot"></div>
-      <div class="exp-card">
+<div class="timeline-card" data-aos="fade-up" data-aos-delay="200">
+  <div class="timeline-dot"></div>
+
+  <div class="exp-card">
+
+    <div class="exp-top">
+    <img src="images/logo/zutriva-logo.png" alt="Zutriva" class="company-logo">
+
+    <div class="exp-info">
         <div class="exp-header">
-          <h4>Freelance Projects</h4>
-          <span class="exp-date">2025</span>
+            <h4>Freelance Projects - Tourism Startup</h4>
+            <span class="exp-date">2025</span>
         </div>
-        <p class="company">Zutriva Startup</p>
+        <p class="company">Zutriva</p>
+    </div>
+</div>
         <div class="tags">
           <span>Canva</span><span>Photoshop</span><span>HTML</span><span>CSS</span>
           <span>CapCut</span><span>Meta Ads</span>
@@ -533,11 +1159,17 @@ border-top:1px solid white;
     <div class="timeline-card" data-aos="fade-up" data-aos-delay="400">
       <div class="timeline-dot"></div>
       <div class="exp-card">
+        <div class="exp-top">
+    <img src="images/logo/ilamkalvi-logo.png" alt="Ilam Kalvi" class="company-logo">
+
+    <div class="exp-info">
         <div class="exp-header">
-          <h4>Freelance Projects</h4>
-          <span class="exp-date">2025</span>
+            <h4>Freelance Projects - EduTech Startup</h4>
+            <span class="exp-date">2025</span>
         </div>
-        <p class="company">Ilam Kalvi Startup</p>
+        <p class="company">Ilam Kalvi</p>
+    </div>
+</div>
         <div class="tags">
           <span>Canva</span><span>Photoshop</span><span>HTML</span><span>CSS</span>
           <span>Pipedream</span><span>Python</span>
@@ -553,11 +1185,17 @@ border-top:1px solid white;
     <div class="timeline-card" data-aos="fade-up" data-aos-delay="600">
       <div class="timeline-dot"></div>
       <div class="exp-card">
+        <div class="exp-top">
+    <img src="images/logo/therizfilma-logo.png" alt="TheRiz Filma" class="company-logo">
+
+    <div class="exp-info">
         <div class="exp-header">
-          <h4>Freelance Projects</h4>
-          <span class="exp-date">2024</span>
+            <h4>Freelance Projects - AI Short Filma</h4>
+            <span class="exp-date">2024</span>
         </div>
-        <p class="company">AI Short Film</p>
+        <p class="company">TheRiz Filma Film</p>
+    </div>
+</div>
         <div class="tags">
           <span>ChatGPT</span><span>Meta AI</span><span>RunWay</span><span>Pixverse AI</span>
           <span>Eleven Labs</span><span>Capcut</span><span>Aftereffect</span>
@@ -574,11 +1212,47 @@ border-top:1px solid white;
 <div class="timeline-card" data-aos="fade-up">
   <div class="timeline-dot"></div>
   <div class="exp-card">
-    <div class="exp-header">
-      <h4>Assembly Operator</h4>
-      <span class="exp-date">May 2023 – May 2024</span>
+<div class="exp-top">
+    <img src="images/logo/konguenginears-logo.png" alt="Kongu Enginears" class="company-logo">
+
+    <div class="exp-info">
+        <div class="exp-header">
+            <h4>Machine Operator</h4>
+            <span class="exp-date">Jun 2024 – Dec 2024</span>
+        </div>
+        <p class="company">Kongu Enginears · Coimbatore</p>
     </div>
-    <p class="company">NCR Atleos · Chennai</p>
+</div>
+
+    <div class="tags">
+      <span>Production Automation</span>
+      <span>Robot Operations</span>
+      <span>Quality Control</span>
+      <span>Process Monitoring</span>
+    </div>
+
+    <p class="exp-desc">
+  ✾ Operated automated manufacturing and robotic production systems.<br>
+  ✾ Maintained process efficiency across multiple production stages.<br>
+  ✾ Ensured consistent quality with minimal defects and downtime.
+</p>
+  </div>
+</div>
+<!-- Card 6 -->
+<div class="timeline-card" data-aos="fade-up">
+  <div class="timeline-dot"></div>
+  <div class="exp-card">
+<div class="exp-top">
+    <img src="images/logo/ncr-logo.png" alt="NCR" class="company-logo">
+
+    <div class="exp-info">
+        <div class="exp-header">
+            <h4>Assembly Operator</h4>
+            <span class="exp-date">May 2023 – May 2024</span>
+        </div>
+        <p class="company">NCR Atleos · Chennai</p>
+    </div>
+</div>
     <div class="tags">
       <span>ATM Manufacturing</span><span>Assembly</span><span>Quality Check</span><span>Production</span>
     </div>
@@ -592,11 +1266,10 @@ border-top:1px solid white;
   </div>
 </section>
     </div>
-  </div>
 
 <!-- third Home Container -->
-<div class="skills section " id="skillssection">
-  <div class="sha4" id="sha4">
+<div class="skills section drop-section">  
+<div class="sha4" id="sha4">
     <section id="skills" class="skills-cards">
       <p2 class="section-title">Skills</p2>
 
@@ -732,22 +1405,8 @@ border-top:1px solid white;
       <img src="images/Gif/meta.gif" alt="Meta Ads" class="skill-hover">
       <div class="skill-name">Meta Ads</div>
     </div>
-    <div class="skill-card">
-      <img src="images/Png/emailmarketig.png" alt="Email Marketing" class="skill-static">
-      <img src="images/Gif/emailmarketig.gif" alt="Email Marketing" class="skill-hover">
-      <div class="skill-name">Email Marketing</div>
+   
     </div>
-    <div class="skill-card">
-      <img src="images/Png/analytics.png" alt="Analytics" class="skill-static">
-      <img src="images/Gif/analytics.gif" alt="Analytics" class="skill-hover">
-      <div class="skill-name">Analytics & Reporting</div>
-    </div>
-    <div class="skill-card">
-      <img src="images/Png/copywriting.png" alt="Copywriting" class="skill-static">
-      <img src="images/Gif/copywriting.gif" alt="Copywriting" class="skill-hover">
-      <div class="skill-name">Copywriting</div>
-    </div>
-  </div>
 </div>
 
 <div class="skill-category">
@@ -773,17 +1432,7 @@ border-top:1px solid white;
       <img src="images/Gif/metaai.gif" alt="Meta AI" class="skill-hover">
       <div class="skill-name">Meta AI</div>
     </div>
-    <div class="skill-card">
-      <img src="images/Png/midjourney.png" alt="Midjourney" class="skill-static">
-      <img src="images/Gif/midjourney.gif" alt="Midjourney" class="skill-hover">
-      <div class="skill-name">Midjourney</div>
-    </div>
-    <div class="skill-card">
-      <img src="images/Png/stablediffusion.png" alt="Stable Diffusion" class="skill-static">
-      <img src="images/Gif/stablediffusion.gif" alt="Stable Diffusion" class="skill-hover">
-      <div class="skill-name">Stable Diffusion</div>
-    </div>
-    <div class="skill-card">
+        <div class="skill-card">
       <img src="images/Png/runway.png" alt="Runway" class="skill-static">
       <img src="images/Gif/runway.gif" alt="Runway" class="skill-hover">
       <div class="skill-name">Runway</div>
@@ -808,17 +1457,7 @@ border-top:1px solid white;
       <img src="images/Gif/botmaster.gif" alt="Botmaster" class="skill-hover">
       <div class="skill-name">Botmaster</div>
     </div>
-    <div class="skill-card">
-      <img src="images/Png/wati.png" alt="WATI" class="skill-static">
-      <img src="images/Gif/wati.gif" alt="WATI" class="skill-hover">
-      <div class="skill-name">WATI</div>
-    </div>
-    <div class="skill-card">
-      <img src="images/Png/aisensy.png" alt="Aisensy" class="skill-static">
-      <img src="images/Gif/aisensy.gif" alt="Aisensy" class="skill-hover">
-      <div class="skill-name">Aisensy</div>
-    </div>
-    <div class="skill-card">
+       <div class="skill-card">
       <img src="images/Png/manychat.png" alt="ManyChat" class="skill-static">
       <img src="images/Gif/manychat.gif" alt="ManyChat" class="skill-hover">
       <div class="skill-name">ManyChat</div>
@@ -833,8 +1472,164 @@ border-top:1px solid white;
   </div>
   </div>
 
+
+</div> <!-- CLOSE page-content -->
+
+
+
 <script>
-  const texts = ["UI/UX Designer", "Video Editor", "Digital Marketing", "Developer"];
+
+
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        document.body.classList.add("fade-bg");
+    }, 5500);
+});
+
+
+window.addEventListener("load", () => {
+
+    if (window.innerWidth <= 768) {
+
+        const menuNote = document.querySelector(".menu-note");
+
+        setTimeout(() => {
+            menuNote.classList.add("show");
+        }, 10000);
+
+        return;
+    }
+
+    const worksTip = document.querySelector(".works-tip");
+
+    setTimeout(() => {
+        worksTip.classList.add("show");
+    }, 10000);
+
+});
+
+
+
+
+
+
+/* ===========================
+   CUSTOM CURSOR
+=========================== */
+
+const dot = document.querySelector(".cursor-dot");
+const ring = document.querySelector(".cursor-ring");
+
+let cursorStarted = false;
+
+let mouseX = 0;
+let mouseY = 0;
+
+let dotX = 0;
+let dotY = 0;
+
+let ringX = 0;
+let ringY = 0;
+
+document.addEventListener("mousemove", (e) => {
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!cursorStarted) {
+
+        cursorStarted = true;
+
+        dot.style.opacity = "1";
+        ring.style.opacity = "1";
+
+        dotX = mouseX;
+        dotY = mouseY;
+
+        ringX = mouseX;
+        ringY = mouseY;
+    }
+
+});
+
+let frame = 0;
+
+function animateCursor(){
+
+    if(cursorStarted){
+
+        dotX += (mouseX-dotX)*0.36;
+        dotY += (mouseY-dotY)*0.36;
+
+        dot.style.transform =
+        `translate3d(${dotX}px,${dotY}px,0) translate(-50%,-50%)`;
+
+        frame++;
+
+        if(frame % 2 === 0){
+
+            ringX += (dotX-ringX)*0.36;
+            ringY += (dotY-ringY)*0.36;
+
+const scale =
+    ring.classList.contains("click") ? 0.72 :
+    ring.classList.contains("release") ? 1.18 : 1;
+
+ring.style.transform =
+`translate3d(${ringX}px,${ringY}px,0) translate(-50%,-50%) scale(${scale})`;
+        }
+
+    }
+
+    requestAnimationFrame(animateCursor);
+}
+
+if (window.innerWidth > 768) {
+    animateCursor();
+}
+document.addEventListener("mousedown", () => {
+    ring.classList.remove("release");
+    ring.classList.add("click");
+});
+
+document.addEventListener("mouseup", () => {
+    ring.classList.remove("click");
+    ring.classList.add("release");
+
+    clearTimeout(ring.releaseTimer);
+    ring.releaseTimer = setTimeout(() => {
+        ring.classList.remove("release");
+    }, 120);
+});
+
+/* Hide cursor when leaving browser window */
+
+document.addEventListener("mouseout", (e) => {
+
+    if (!e.relatedTarget && !e.toElement) {
+        dot.classList.add("cursor-hidden");
+        ring.classList.add("cursor-hidden");
+    }
+
+});
+
+document.addEventListener("mouseover", () => {
+
+    dot.classList.remove("cursor-hidden");
+    ring.classList.remove("cursor-hidden");
+
+});
+
+
+
+
+
+
+
+let introFinished = false;
+
+
+  const texts = ["UI/UX & Graphic Designer", "Video Editor", "Digital Marketing", "Developer"];
   let textIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
@@ -844,27 +1639,78 @@ border-top:1px solid white;
   const navLinks = document.querySelectorAll("header nav a");
   const body = document.body;
 
+
+// Always start from the top after refresh
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+window.scrollTo(0, 0);
+
+
+
   /* ===========================
      LOADER & INITIAL START
   =========================== */
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('page-loader');
-    if (loader) {
-      // 1. Add fade-out class
-      loader.classList.add('fade-out');
+window.addEventListener('load', () => {
 
-      // 2. Wait for fade animation to finish (600ms), then remove from DOM
-      setTimeout(() => {
-        loader.style.display = 'none';
-        
-        // 3. 🚀 Start the typing effect after the loader is gone
+    history.scrollRestoration = 'manual';
+
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 0);
+
+    const loader = document.getElementById('page-loader');
+    const page = document.getElementById('page-content');
+
+    if(loader){
+
+    loader.classList.add('fade-out');
+
+    setTimeout(()=>{
+
+        loader.style.display = "none";
+
+const introGif = document.getElementById("intro-gif");
+
+introGif.classList.add("show");
+
+setTimeout(() => {
+
+    introGif.classList.remove("show");
+    introGif.classList.add("hide");
+
+    typeEffect();
+
+    page.classList.add("page-enter");
+
+
+    setTimeout(() => {
+
+        document.querySelectorAll(".timeline-card,.skill-card").forEach(card=>{
+            card.classList.add("animate");
+        });
+
+        startCardAnimations();
+
+    },1836);
+
+},5500);   // <-- Your pageEnter animation duration
+
+
+    },600);
+
+}else{
+
         typeEffect();
-      }, 600); 
-    } else {
-      // Fallback: If loader is missing, start typing immediately
-      typeEffect();
+
+        setTimeout(()=>{
+            page.classList.add("page-enter");
+        },8000);
+
     }
-  });
+
+});
 
  /* ===========================
      TYPING EFFECT LOGIC
@@ -946,10 +1792,18 @@ function stopTyping() {
 
 const hamburger = document.querySelector('.hamburger');
 const nav = document.querySelector('header nav');
+const menuNote = document.querySelector('.menu-note');
 
 hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active');
-  nav.classList.toggle('active');
+
+    hamburger.classList.toggle('active');
+    nav.classList.toggle('active');
+
+    // Hide permanently after first click
+    if(menuNote){
+        menuNote.classList.add("hide");
+    }
+
 });
 
 // Optional: Close nav when a link is clicked
@@ -981,6 +1835,49 @@ document.addEventListener('click', (event) => {
   }
 });
 
+
+
+
+function startCardAnimations(){
+
+    const cardObserver = new IntersectionObserver((entries)=>{
+
+        // Only cards that are entering the screen now
+        const visibleCards = entries.filter(entry => entry.isIntersecting);
+
+        visibleCards.forEach((entry,index)=>{
+
+            setTimeout(()=>{
+
+                entry.target.classList.remove("animate");
+                entry.target.classList.add("show");
+
+                cardObserver.unobserve(entry.target);
+
+            }, index * 150);   // <-- Delay between visible cards
+
+        });
+
+    },{
+        threshold:0.2
+    });
+
+    // Experience cards
+    document.querySelectorAll(".timeline-card").forEach(card=>{
+        cardObserver.observe(card);
+    });
+
+    // Skill cards
+    document.querySelectorAll(".skill-card").forEach(card=>{
+        cardObserver.observe(card);
+    });
+
+}
+
+
+
+
 </script>
+
 </body>
 </html>
