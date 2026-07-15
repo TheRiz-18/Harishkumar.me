@@ -1090,8 +1090,20 @@ html{
 }
 
 
+/* Disable card opening animation on mobile */
+@media (max-width:768px){
 
+  .work-card,
+  .work-image,
+  .work-media-zoom,
+  .work-details,
+  .close-button,
+  .placeholder{
+    transition: none !important;
+    animation: none !important;
+  }
 
+}
 
 
 </style>
@@ -3610,8 +3622,11 @@ controls.appendChild(fullscreenButton);
             card.style.transform = "translate(-50%, -50%)";
 
             if (isZoom) {
-                card.style.transition = "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)";
-            } else {
+    card.style.transition =
+        window.innerWidth <= 768
+            ? "none"
+            : "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)";
+} else {
                 card.style.opacity = "1";
                 // Fixed transition for simple slide
                 card.style.transition = `transform ${SLIDE_DURATION_S} ease-out, opacity ${SLIDE_DURATION_S} ease-out, box-shadow 0.4s ease`;
@@ -3655,7 +3670,10 @@ controls.appendChild(fullscreenButton);
             activeCard = null; 
             removeOverlay();
 
-            card.style.transition = "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)"; 
+card.style.transition =
+    window.innerWidth <= 768
+        ? "none"
+        : "all 0.4s cubic-bezier(0.25,0.46,0.45,0.94)";
 
             card.style.width = rect.width + "px";
             card.style.height = rect.height + "px";
@@ -3664,10 +3682,14 @@ controls.appendChild(fullscreenButton);
             card.style.left = rect.left + "px";
             card.style.transform = "none"; 
 
-            card.addEventListener("transitionend", function handler() {
-                finalCleanup(card); 
-                card.removeEventListener("transitionend", handler);
-            }, { once: true });
+            if (window.innerWidth <= 768) {
+    finalCleanup(card);
+} else {
+    card.addEventListener("transitionend", function handler() {
+        finalCleanup(card);
+        card.removeEventListener("transitionend", handler);
+    }, { once: true });
+}
 
         } else {
             const animationName = direction === 1 ? 'slideOutLeft' : 'slideOutRight'; 
