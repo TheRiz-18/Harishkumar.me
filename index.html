@@ -646,16 +646,19 @@ left: 100%;
 }
 
 
-@media (min-width:769px) and (max-width:1080px){
-    body{
-        background:url("images/Bg/Riz-1080.jpg") center/cover no-repeat fixed;
-    }
+@media (max-width:1080px){
 
-    body::before,
-    body::after{
-        display:none;
-    }
+    /* Full screen GIF without breaking animation */
+    #intro-gif{
+left: 100%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
 
+    background: transparent;
+
+
+    }
 
     #intro-gif img{
         width:75%;
@@ -1022,7 +1025,7 @@ body::after{
 </div>
 
 <div id="intro-gif">
-    <img src="images/others/wave.gif" alt="Intro">
+    <img src="images/others/wave.GIF" alt="Intro">
 </div>
 
 
@@ -1134,7 +1137,7 @@ body::after{
 
     <div class="exp-info">
         <div class="exp-header">
-            <h4>Freelance Projects - Tourism Startup</h4>
+            <h4>Freelance Projects [ Tourism Startup ]</h4>
             <span class="exp-date">2025</span>
         </div>
         <p class="company">Zutriva</p>
@@ -1161,7 +1164,7 @@ body::after{
 
     <div class="exp-info">
         <div class="exp-header">
-            <h4>Freelance Projects - EduTech Startup</h4>
+            <h4>Freelance Projects [ EduTech Startup ]</h4>
             <span class="exp-date">2025</span>
         </div>
         <p class="company">Ilam Kalvi</p>
@@ -1187,7 +1190,7 @@ body::after{
 
     <div class="exp-info">
         <div class="exp-header">
-            <h4>Freelance Projects - AI Short Filma</h4>
+            <h4>Freelance Projects [ AI Short Filma ]</h4>
             <span class="exp-date">2024</span>
         </div>
         <p class="company">TheRiz Filma Film</p>

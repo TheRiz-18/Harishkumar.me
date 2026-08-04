@@ -1090,8 +1090,37 @@ html{
 }
 
 
+/* Disable card opening animation on mobile */
+@media (max-width:768px){
+
+  .work-card,
+  .work-image,
+  .work-media-zoom,
+  .work-details,
+  .close-button,
+  .placeholder{
+    transition: none !important;
+    animation: none !important;
+  }
+
+}
 
 
+
+/* Scroll Drop Animation */
+.work-card {
+    opacity: 0;
+    transform: translateY(-60px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s cubic-bezier(.22,1,.36,1);
+    transition-delay: var(--delay, 0ms);
+}
+
+.work-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 </style>
 </head>
@@ -3603,7 +3632,7 @@ controls.appendChild(fullscreenButton);
             card.style.top = "50%";
             card.style.left = "50%";
             card.style.width = "520px";
-            card.style.maxWidth = "100%";
+            card.style.maxWidth = "90%";
             card.style.height = "auto";
             card.style.minHeight = "auto";
             card.style.transform = "translate(-50%, -50%)";
@@ -3791,6 +3820,37 @@ document.addEventListener('click', (event) => {
     hamburger.classList.remove('active');
   }
 });
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const cards = document.querySelectorAll(".work-card");
+
+    const observer = new IntersectionObserver((entries) => {
+
+        entries.forEach((entry, index) => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.style.setProperty("--delay", `${index * 120}ms`);
+
+                entry.target.classList.add("show");
+
+                observer.unobserve(entry.target);
+            }
+
+        });
+
+    }, {
+        threshold: 0.15,
+        rootMargin: "0px 0px -80px 0px"
+    });
+
+    cards.forEach(card => observer.observe(card));
+
+});
+
 
 </script>
 </body>
